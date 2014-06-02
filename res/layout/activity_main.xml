@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Parent Layout With Vertical Orientation -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffcc"
+    android:orientation="vertical" >
+
+    <!-- info line -->
+
+    <RelativeLayout
+		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		android:paddingLeft="16dp"
+   		android:paddingRight="16dp" >
+
+        <TextView
+            android:id="@+id/score_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+            android:layout_marginRight="4dp"
+            android:text="@string/score_label" />
+        <TextView
+            android:id="@+id/score_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_toRightOf="@+id/score_label" />
+        <TextView
+            android:id="@+id/best_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_toLeftOf="@+id/best_value" 
+            android:layout_marginRight="4dp"
+            android:text="@string/best_label" />
+        <TextView
+            android:id="@+id/best_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+ <!-- end info line -->
+ <!-- parentheses -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+   	    android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/oper_button_5"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#00A0A0"
+            android:onClick="processOperClick5"
+            android:text="@string/oper_button_5" />
+
+        <Button
+            android:id="@+id/oper_button_6"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#00A0A0"
+            android:onClick="processOperClick6"
+            android:text="@string/oper_button_6" />
+        </LinearLayout>
+ <!-- end parens -->
+    <!-- operation buttons -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+   	    android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/oper_button_1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#FFA500"
+            android:onClick="processOperClick1"
+            android:text="@string/oper_button_1" />
+
+        <Button
+            android:id="@+id/oper_button_2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#FFA500"
+            android:onClick="processOperClick2"
+            android:text="@string/oper_button_2" />
+
+        <Button
+            android:id="@+id/oper_button_3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#FFA500"
+            android:onClick="processOperClick3"
+            android:text="@string/oper_button_3" />
+
+        <Button
+            android:id="@+id/oper_button_4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#FFA500"
+            android:onClick="processOperClick4"
+            android:text="@string/oper_button_4" />
+
+    </LinearLayout>
+ <!-- end oper line -->
+    <!-- puzzle buttons -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+   	    android:layout_weight="2"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/puzz_button_1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#7B68EE"
+            android:onClick="processPuzzClick1" />
+
+        <Button
+            android:id="@+id/puzz_button_2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#7B68EE"
+            android:onClick="processPuzzClick2" />
+
+        <Button
+            android:id="@+id/puzz_button_3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#7B68EE"
+            android:onClick="processPuzzClick3" />
+
+        <Button
+            android:id="@+id/puzz_button_4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#7B68EE"
+            android:onClick="processPuzzClick4" />
+    </LinearLayout>
+ <!-- end puzzle buttons -->
+ <!-- guess line -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+   	    android:layout_weight="1"
+        android:orientation="horizontal" >
+	    <TextView
+    	    android:id="@+id/guessText"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+	    	android:layout_gravity="center_vertical" />
+	</LinearLayout>
+    <!-- submit, backspace, and clear -->
+
+    <RelativeLayout
+		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+   		android:paddingLeft="16dp"
+   		android:paddingRight="16dp" >
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="96dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#6B8E23"
+            android:onClick="processSubmit"
+            android:text="@string/submit_button"/>
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="64dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#708090"
+    		android:layout_toRightOf="@+id/submit_button" 
+            android:onClick="processBackSpace"
+            android:text="@string/backspace_button" />
+
+        <Button
+            android:id="@+id/clear_button"
+            android:layout_width="64dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#908070"
+    		android:layout_toRightOf="@+id/back_button" 
+            android:onClick="processClear"
+            android:text="@string/clear_button" />
+        <Button
+            android:id="@+id/end_button"
+            android:layout_width="64dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#FA8072"
+    		android:layout_toRightOf="@+id/clear_button" 
+            android:onClick="processGiveUp"
+            android:text="@string/give_up" />
+        </RelativeLayout>
+ <!-- end puzzle buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+   	    android:layout_weight="1"
+        android:orientation="horizontal" >
+	    <TextView
+    	    android:id="@+id/messageText"
+        	android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	    	android:layout_gravity="center_horizontal" />
+	</LinearLayout>  
+</LinearLayout> <!-- end parent -->
+    
