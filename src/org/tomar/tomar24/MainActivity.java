@@ -44,7 +44,9 @@ public class MainActivity extends ActionBarActivity
 	boolean gameOver;
 	SharedPreferences gamePrefs;
 	int bestScore = 0;
-
+	boolean digitNeeded = true;
+	String puzzleSolution;
+	
 	static void log(String s)
 	{
 		System.out.println(Functions.getDateTimeStamp() + ": " + s);
@@ -53,6 +55,10 @@ public class MainActivity extends ActionBarActivity
 	{
 	    checkHighScore();
 	    super.onDestroy();
+	}
+	public void onBackPressed()
+	{
+		message.setText("Back button disabled: use Home");	
 	}
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -130,8 +136,10 @@ public class MainActivity extends ActionBarActivity
 		puzzle = new Puzzle(puzzleStrings.get(Functions.getRnd(puzzleStrings.size())));
 		score.setText("" + points);
 		guess.setText("");
+		digitNeeded = true;
 		elementList = new ArrayList<>();
 		puzzle.resetButtons();
+		puzzleSolution = puzzle.solvePuzzle();
 	}
 	private void checkHighScore()
 	{
@@ -152,28 +160,48 @@ public class MainActivity extends ActionBarActivity
 		}
 		else
 		{	
-			message.setText("Solving...");
-			giveUpButton.setEnabled(false);
-			guess.setText(puzzle.solvePuzzle());
+			guess.setText(puzzleSolution);
 			checkHighScore();
 			gameOver = true;
 			message.setText("Thanks for playing!");
 			submitButton.setText("Again?");
 			giveUpButton.setText("Quit");
-			giveUpButton.setEnabled(true);
 		}	
 	}
 	public void processOperClick(View view, int operIndex)
 	{
-		elementList.add(OPERATORS[operIndex]);
-		guess.setText(guess.getText()+ OPERATORS[operIndex] + " ");
+		if (operIndex > 3)				// parentheses
+		{
+			elementList.add(OPERATORS[operIndex]);
+			guess.setText(guess.getText()+ OPERATORS[operIndex] + " ");
+			message.setText("");
+		}
+		else if (digitNeeded)
+		{
+			message.setText("Click on a number.");
+		}
+		else
+		{	
+			elementList.add(OPERATORS[operIndex]);
+			guess.setText(guess.getText()+ OPERATORS[operIndex] + " ");
+			message.setText("");
+			digitNeeded = true;
+		}	
 	}
 	public void processPuzzClick(View view, int argIndex)
 	{
-		message.setText("");
-		elementList.add(puzzle.getArgument(argIndex));
-		guess.setText(guess.getText().toString() + puzzle.getArgument(argIndex).getNum() + " ");
-		puzzle.getArgument(argIndex).getButton().setEnabled(false);
+		if (digitNeeded)
+		{	
+			message.setText("");
+			elementList.add(puzzle.getArgument(argIndex));
+			guess.setText(guess.getText().toString() + puzzle.getArgument(argIndex).getNum() + " ");
+			puzzle.getArgument(argIndex).getButton().setEnabled(false);
+			digitNeeded = false;
+		}
+		else
+		{
+			message.setText("Click on an operation sign.");
+		}
 	}
 	public void processSubmit(View view)
 	{
@@ -209,6 +237,11 @@ public class MainActivity extends ActionBarActivity
 			if (elementList.get(elementList.size() - 1).getClass().getName().equals("org.tomar.tomar24.MainActivity$Argument"))
 			{
 				((Argument) elementList.get(elementList.size() - 1)).getButton().setEnabled(true);
+				digitNeeded = true;
+			}
+			else
+			{
+				digitNeeded = false;
 			}
 			elementList.remove(elementList.size() - 1);
 			StringBuilder sb = new StringBuilder("");
