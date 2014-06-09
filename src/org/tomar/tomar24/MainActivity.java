@@ -1,8 +1,10 @@
 package org.tomar.tomar24;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import org.ToMar.Utils.Functions;
@@ -19,7 +21,6 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity
 {
-	static final String[] OPERATORS = {"+","-","*","/","(",")"};
 	static final int MAXPUZZLES = 30;
 	static final int NUMBERS = 4;
 	static final int TARGET = 24;
@@ -35,8 +36,9 @@ public class MainActivity extends ActionBarActivity
 	TextView best;
 	TextView bestLabel;
 	int points = 0;
+	Operator[] operators = new Operator[6];
 	Button[] puzzleButtons = new Button[NUMBERS];
-	Button[] operButtons = new Button[OPERATORS.length];
+	Button[] operButtons = new Button[6];
 	Button submitButton;
 	Button giveUpButton;
 	Button backButton;
@@ -46,7 +48,7 @@ public class MainActivity extends ActionBarActivity
 	int bestScore = 0;
 	boolean digitNeeded = true;
 	String puzzleSolution;
-	
+
 	static void log(String s)
 	{
 		System.out.println(Functions.getDateTimeStamp() + ": " + s);
@@ -75,7 +77,7 @@ public class MainActivity extends ActionBarActivity
         puzzleStrings = new ArrayList<>();
         try
         {
-            InputStream is = this.getClass().getResourceAsStream("u24.txt");
+            InputStream is = this.getClass().getResourceAsStream("ToMar24.txt");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(is)))
             {
                 while   (true)
@@ -91,7 +93,7 @@ public class MainActivity extends ActionBarActivity
         }
         catch   (Exception e)
         {
-        	log("Exception reading U24 input file: " + e);
+        	log("Exception reading ToMar24 input file: " + e);
         }
 		message = (TextView) findViewById(R.id.messageText);
 		guess = (TextView) findViewById(R.id.guessText);
@@ -124,8 +126,9 @@ public class MainActivity extends ActionBarActivity
 		{
 			puzzleButtons[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
 		}
-		for (int i = 0; i < OPERATORS.length; i++)
+		for (int i = 0; i < operators.length; i++)
 		{
+			operators[i] = new Operator(i);
 			operButtons[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
 		}
 		message.setText("Welcome...");
@@ -139,7 +142,6 @@ public class MainActivity extends ActionBarActivity
 		digitNeeded = true;
 		elementList = new ArrayList<>();
 		puzzle.resetButtons();
-		puzzleSolution = puzzle.solvePuzzle();
 	}
 	private void checkHighScore()
 	{
@@ -170,10 +172,10 @@ public class MainActivity extends ActionBarActivity
 	}
 	public void processOperClick(View view, int operIndex)
 	{
-		if (operIndex > 3)				// parentheses
+		if (operators[operIndex].isParenthesis())				// parentheses
 		{
-			elementList.add(OPERATORS[operIndex]);
-			guess.setText(guess.getText()+ OPERATORS[operIndex] + " ");
+			elementList.add(operators[operIndex]);
+			guess.setText(guess.getText()+ operators[operIndex].toString() + " ");
 			message.setText("");
 		}
 		else if (digitNeeded)
@@ -182,8 +184,8 @@ public class MainActivity extends ActionBarActivity
 		}
 		else
 		{	
-			elementList.add(OPERATORS[operIndex]);
-			guess.setText(guess.getText()+ OPERATORS[operIndex] + " ");
+			elementList.add(operators[operIndex]);
+			guess.setText(guess.getText()+ operators[operIndex].toString() + " ");
 			message.setText("");
 			digitNeeded = true;
 		}	
@@ -232,6 +234,7 @@ public class MainActivity extends ActionBarActivity
 	}	
 	public void processBackSpace(View view)
 	{
+//		log("top of processBackSpace, guess is " + guess.getText() + ", digitneeded is " + digitNeeded);
 		if (!(elementList.isEmpty()))
 		{
 			if (elementList.get(elementList.size() - 1).getClass().getName().equals("org.tomar.tomar24.MainActivity$Argument"))
@@ -239,9 +242,12 @@ public class MainActivity extends ActionBarActivity
 				((Argument) elementList.get(elementList.size() - 1)).getButton().setEnabled(true);
 				digitNeeded = true;
 			}
-			else
+			else 			// it's an operator -- if it's parenthesis, leave validation what it was
 			{
-				digitNeeded = false;
+				if (!((Operator) elementList.get(elementList.size() - 1)).isParenthesis())
+				{	
+					digitNeeded = false;
+				}	
 			}
 			elementList.remove(elementList.size() - 1);
 			StringBuilder sb = new StringBuilder("");
@@ -254,15 +260,17 @@ public class MainActivity extends ActionBarActivity
 			}
 			catch (Exception e)
 			{
-				log("ERROR in U24 backSpace: " + e);
+				log("ERROR in ToMar24 backSpace: " + e);
 			}
 			guess.setText(sb.toString());
 		}
+//		log("bottom of processBackSpace, guess is " + guess.getText() + ", digitneeded is " + digitNeeded);
 	}	
 	public void processClear(View view)
 	{
 		while (elementList.size() > 0)
 		{
+//			log("calling backspace from clear");
 			processBackSpace(view);
 		}
 	}
@@ -312,22 +320,20 @@ public class MainActivity extends ActionBarActivity
         private Argument[] argument;
     	private tmEvaluator eval = new tmEvaluator();
         public static final int NUMBERS = 4;
-		public static final String COMMA = ",";
+        public static final String SPACE = " ";
 
         public Puzzle(String puzzleString)
         {
 			String[] holder = new String[NUMBERS];
-			if (puzzleString.indexOf(COMMA) > -1)
-			{
-				holder = puzzleString.split(COMMA);
-			}
-			else
-			{
-				for (int i = 0; i < NUMBERS; i++)
-				{
-					holder[i] = puzzleString.substring(2 * i, 2 * i + 2);
-				}
-			}
+			int[] picker = Functions.randomPicks(NUMBERS, NUMBERS);
+			holder[picker[0]] = puzzleString.substring(0, puzzleString.indexOf(SPACE));
+			puzzleString = puzzleString.substring(puzzleString.indexOf(SPACE)+ 1);
+			holder[picker[1]] = puzzleString.substring(0, puzzleString.indexOf(SPACE));
+			puzzleString = puzzleString.substring(puzzleString.indexOf(SPACE)+ 1);
+			holder[picker[2]] = puzzleString.substring(0, puzzleString.indexOf(SPACE));
+			puzzleString = puzzleString.substring(puzzleString.indexOf(SPACE)+ 1);
+			holder[picker[3]] = puzzleString.substring(0, puzzleString.indexOf(SPACE));
+			puzzleSolution = puzzleString.substring(puzzleString.indexOf(SPACE)+ 1);
             argument = new Argument[NUMBERS];
 			StringBuilder sb = new StringBuilder("");
             for (int i = 0; i < NUMBERS; i++)
@@ -336,7 +342,7 @@ public class MainActivity extends ActionBarActivity
 				sb.append(Functions.formatNumber(argument[i].getNum(), 2));
             }
         }
-        public String solvePuzzle()
+        public String solvePuzzle()				// no longer being called, but useful to preserve
         {
         	for (int i1 = 0; i1 < NUMBERS; i1++)
         	{
@@ -382,43 +388,43 @@ public class MainActivity extends ActionBarActivity
     	{
     		String expr = "";
     		// no parens
-    		expr = "" + i1 + OPERATORS[o1] + i2 + OPERATORS[o2] + i3 + OPERATORS[o3] + i4;
+    		expr = "" + i1 + operators[o1].toString() + i2 + operators[o2].toString() + i3 + operators[o3].toString() + i4;
     		if (eval.evaluate(expr) == TARGET) 
     		{
     			return expr;
     		}
     		// (a,b) c d
-    		expr = "(" + i1 + OPERATORS[o1] + i2 + ")" + OPERATORS[o2] + i3 + OPERATORS[o3] + i4;
+    		expr = "(" + i1 + operators[o1].toString() + i2 + ")" + operators[o2].toString() + i3 + operators[o3].toString() + i4;
     		if (eval.evaluate(expr) == TARGET)
     		{
     			return expr;
     		}
     		// a (b,c) d
-    		expr = "" + i1 + OPERATORS[o1] + "(" + i2 + OPERATORS[o2] + i3 + ")" + OPERATORS[o3] + i4;
+    		expr = "" + i1 + operators[o1].toString() + "(" + i2 + operators[o2].toString() + i3 + ")" + operators[o3].toString() + i4;
     		if (eval.evaluate(expr) == TARGET)
     		{
     			return expr;
     		}
     		// a b (c,d)
-    		expr = "" + i1 + OPERATORS[o1] + i2 + OPERATORS[o2] + "(" + i3 + OPERATORS[o3] + i4 + ")";
+    		expr = "" + i1 + operators[o1].toString() + i2 + operators[o2].toString() + "(" + i3 + operators[o3].toString() + i4 + ")";
     		if (eval.evaluate(expr) == TARGET)
     		{
     			return expr;
     		}
     		// (a,b)(c,d)
-    		expr = "(" + i1 + OPERATORS[o1] + i2 + ")" + OPERATORS[o2] + "(" + i3 + OPERATORS[o3] + i4 + ")";
+    		expr = "(" + i1 + operators[o1].toString() + i2 + ")" + operators[o2].toString() + "(" + i3 + operators[o3].toString() + i4 + ")";
     		if (eval.evaluate(expr) == TARGET)
     		{
     			return expr;
     		}
     		// (a,b,c) d
-    		expr = "(" + i1 + OPERATORS[o1] + i2 + OPERATORS[o2] + i3 + ")" + OPERATORS[o3] + i4; 
+    		expr = "(" + i1 + operators[o1].toString() + i2 + operators[o2].toString() + i3 + ")" + operators[o3].toString() + i4; 
     		if (eval.evaluate(expr) == TARGET)
     		{
     			return expr;
     		}
     		// a (b,c,d)
-    		expr = "" + i1 + OPERATORS[o1] + "(" + i2 + OPERATORS[o2] + i3 + OPERATORS[o3] + i4 + ")";
+    		expr = "" + i1 + operators[o1].toString() + "(" + i2 + operators[o2].toString() + i3 + operators[o3].toString() + i4 + ")";
     		if (eval.evaluate(expr) == TARGET)
     		{
     			return expr;
@@ -479,4 +485,31 @@ public class MainActivity extends ActionBarActivity
         	return "" + this.num;
         }
     }
+    private class Operator
+    {
+    	private Button button = null;
+		private boolean parenthesis = false;
+        
+        public Operator(int index)
+        {
+            this.button = operButtons[index];
+            if (index > 3)
+            {
+            	parenthesis = true;
+            }
+        }
+        public Button getButton()
+		{
+			return this.button;
+		}
+    	public boolean isParenthesis()
+        {
+            return this.parenthesis;
+        }
+        public String toString()
+        {
+        	return "" + this.getButton().getText();
+        }
+    }
+    
 }

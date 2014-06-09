@@ -1,0 +1,119 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (javaClasses.cpp:136), pid=13788, tid=14308
+#  fatal error: Invalid layout of preloaded class
+#
+# JRE version:  (7.0_55-b13) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.55-b03 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000002be0800):  JavaThread "Unknown thread" [_thread_in_vm, id=14308, stack(0x0000000002ae0000,0x0000000002be0000)]
+
+Stack: [0x0000000002ae0000,0x0000000002be0000]
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x0000000002be0800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=14308, stack(0x0000000002ae0000,0x0000000002be0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.014 loading class 0x0000000002c26a40 done
+Event: 0.015 loading class 0x0000000002c26460 done
+Event: 0.015 loading class 0x0000000002c26440
+Event: 0.015 loading class 0x0000000002c2e540
+Event: 0.015 loading class 0x0000000002c2e540 done
+Event: 0.015 loading class 0x0000000002c2e570
+Event: 0.015 loading class 0x0000000002c2e570 done
+Event: 0.015 loading class 0x0000000002c2e5a0
+Event: 0.015 loading class 0x0000000002c2e5a0 done
+Event: 0.015 loading class 0x0000000002c26440 done
+
+
+Dynamic libraries:
+0x00007ff7454c0000 - 0x00007ff7454f3000 	C:\Program Files\Java\jre7\bin\javaw.exe
+0x00007ffad6ce0000 - 0x00007ffad6e8a000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffad4560000 - 0x00007ffad469a000 	C:\WINDOWS\system32\KERNEL32.DLL
+0x00007ffad4170000 - 0x00007ffad427f000 	C:\WINDOWS\system32\KERNELBASE.dll
+0x00007ffad2ae0000 - 0x00007ffad2b68000 	C:\WINDOWS\system32\apphelp.dll
+0x00007ffad0990000 - 0x00007ffad09df000 	C:\WINDOWS\AppPatch\AppPatch64\AcGenral.DLL
+0x00007ffad6910000 - 0x00007ffad69b7000 	C:\WINDOWS\system32\msvcrt.dll
+0x00007ffad3f00000 - 0x00007ffad3f2b000 	C:\WINDOWS\SYSTEM32\SspiCli.dll
+0x00007ffad5d30000 - 0x00007ffad5d81000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x00007ffad5fb0000 - 0x00007ffad6121000 	C:\WINDOWS\system32\USER32.dll
+0x00007ffad6580000 - 0x00007ffad66f8000 	C:\WINDOWS\system32\ole32.dll
+0x00007ffad4910000 - 0x00007ffad5d26000 	C:\WINDOWS\system32\SHELL32.dll
+0x00007ffad36e0000 - 0x00007ffad36fe000 	C:\WINDOWS\SYSTEM32\USERENV.dll
+0x00007ffad46a0000 - 0x00007ffad4745000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x00007ffacacb0000 - 0x00007ffacaccb000 	C:\WINDOWS\SYSTEM32\MPR.dll
+0x00007ffad6ba0000 - 0x00007ffad6cd6000 	C:\WINDOWS\system32\RPCRT4.dll
+0x00007ffad6130000 - 0x00007ffad6187000 	C:\WINDOWS\SYSTEM32\sechost.dll
+0x00007ffad6190000 - 0x00007ffad6366000 	C:\WINDOWS\SYSTEM32\combase.dll
+0x00007ffad6370000 - 0x00007ffad64b5000 	C:\WINDOWS\system32\GDI32.dll
+0x00007ffad4050000 - 0x00007ffad4064000 	C:\WINDOWS\SYSTEM32\profapi.dll
+0x00007ffad2500000 - 0x00007ffad259f000 	C:\WINDOWS\SYSTEM32\SHCORE.dll
+0x00007ffad6700000 - 0x00007ffad6734000 	C:\WINDOWS\system32\IMM32.DLL
+0x00007ffad5db0000 - 0x00007ffad5ee9000 	C:\WINDOWS\system32\MSCTF.dll
+0x00007ffad1e80000 - 0x00007ffad20da000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.9600.17031_none_6242a4b3ecbb55a1\COMCTL32.dll
+0x0000000075270000 - 0x0000000075342000 	C:\Program Files\Java\jre7\bin\msvcr100.dll
+0x0000000074aa0000 - 0x0000000075269000 	C:\Program Files\Java\jre7\bin\server\jvm.dll
+0x00007ffad19e0000 - 0x00007ffad19e9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffacf6d0000 - 0x00007ffacf6ef000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffad4760000 - 0x00007ffad4767000 	C:\WINDOWS\system32\PSAPI.DLL
+0x00007ffad6520000 - 0x00007ffad6578000 	C:\WINDOWS\system32\WS2_32.dll
+0x00007ffac9d30000 - 0x00007ffac9d5a000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ffad4750000 - 0x00007ffad4759000 	C:\WINDOWS\system32\NSI.dll
+0x00007ffad4120000 - 0x00007ffad416a000 	C:\WINDOWS\SYSTEM32\cfgmgr32.dll
+0x00007ffad2ee0000 - 0x00007ffad2f06000 	C:\WINDOWS\SYSTEM32\DEVOBJ.dll
+0x0000000076a80000 - 0x0000000076a8f000 	C:\Program Files\Java\jre7\bin\verify.dll
+0x0000000074a70000 - 0x0000000074a98000 	C:\Program Files\Java\jre7\bin\java.dll
+0x0000000074a50000 - 0x0000000074a65000 	C:\Program Files\Java\jre7\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 -Xbootclasspath:C:\Program Files\sdk\platforms\android-19\android.jar 
+java_command: org.tomar.tomar24.MainActivity
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Zend\ZendServer\share\ZendFramework\bin;C:\Program Files (x86)\Zend\ZendServer\bin
+USERNAME=marie
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 58 Stepping 9, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 8.1 , 64 bit Build 9600 
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 58 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, erms, ht, tsc, tscinvbit, tscinv
+
+Memory: 4k page, physical 6082148k(988752k free), swap 12373604k(2877524k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (24.55-b03) for windows-amd64 JRE (1.7.0_55-b13), built on Mar 17 2014 19:45:30 by "java_re" with unknown MS VC++:1600
+
+time: Sat Jun 07 23:14:42 2014
+elapsed time: 0 seconds
+
