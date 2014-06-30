@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tomar.tomar24"
-    android:versionCode="3"
-    android:versionName="1.11" >
+    android:versionCode="4"
+    android:versionName="1.12" >
 
     <uses-sdk
         android:minSdkVersion="1"
@@ -23,6 +23,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+    	<!-- A child of the main activity -->
+    	<activity
+        	android:name="org.tomar.tomar24.HowToPlay"
+        	android:label="@string/action_how_display"
+        	android:parentActivityName="org.tomar.tomar24.MainActivity" >
+        	<!-- Parent activity meta-data to support 4.0 and lower -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+            	android:value="org.tomar.tomar24.MainActivity" />
+    	</activity>
+    	<!-- A child of the main activity -->
+    	<activity
+        	android:name="org.tomar.tomar24.AboutToMarGames"
+        	android:label="@string/action_about"
+        	android:parentActivityName="org.tomar.tomar24.MainActivity" >
+        	<!-- Parent activity meta-data to support 4.0 and lower -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+            	android:value="org.tomar.tomar24.MainActivity" />
+    	</activity>
+    	</application>
 
 </manifest>

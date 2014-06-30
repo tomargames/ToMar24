@@ -2,7 +2,18 @@
 <resources>
 
     <string name="app_name">ToMar24</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_how">How to Play</string>
+    <string name="action_how_display">How to Play ToMar24</string>
+    <string name="action_about">About ToMarGames</string>
+    <string name="instructions_1">You must use all 4 numbers.</string>
+    <string name="instructions_2">You can use the numbers in any order.</string>
+    <string name="instructions_3">The equation you make must equal 24 exactly.</string>
+    <string name="instructions_4">Operation signs and parentheses can be used as much as you need.</string>
+    <string name="instructions_5">If you give up, you\'ll get an answer, but the game is over.</string>
+    <string name="about_1">ToMarGames are open source and free to play.</string>
+    <string name="about_2">Online games, and apps for PC, Mac, and Android.</string>
+    <string name="about_3">All games are coded in Java by marie.</string>
+    <string name="about_4">Visit our website at www.tomargames.com.</string>
     <!-- Labels -->
 	<string name="oper_button_1">+</string>	
 	<string name="oper_button_2">-</string>	
@@ -16,5 +27,4 @@
 	<string name="give_up">Give Up</string>
 	<string name="score_label">Solved: </string>
 	<string name="best_label">Best: </string>
-	<string name="spacer">------------------</string>
 </resources>

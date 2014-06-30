@@ -1,19 +1,21 @@
 package org.tomar.tomar24;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import org.ToMar.Utils.Functions;
 import org.ToMar.Utils.tmEvaluator;
+import org.tomar.tomar24.R;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -274,6 +276,41 @@ public class MainActivity extends ActionBarActivity
 			processBackSpace(view);
 		}
 	}
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_how)
+		{
+			openHow();
+			return true;
+		}
+		if (id == R.id.action_about)
+		{
+			openAbout();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	public void openHow()
+	{
+	    Intent i = new Intent(MainActivity.this, HowToPlay.class);
+	    startActivity(i);
+	}	
+	public void openAbout()
+	{
+	    Intent i = new Intent(MainActivity.this, AboutToMarGames.class);
+	    startActivity(i);
+	}	
 	public void processPuzzClick1(View view) 
 	{
 		processPuzzClick(view, 0);
